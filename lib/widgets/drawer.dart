@@ -33,7 +33,7 @@ class Mydrawer extends StatelessWidget {
           children: [
             Container(
               color: Theme.of(context).colorScheme.secondary,
-              height: 100,
+              height: 120,
               width: 400,
               padding: const EdgeInsets.all(20),
               alignment:

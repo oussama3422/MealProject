@@ -116,7 +116,9 @@ class MealDetailScreen extends StatelessWidget {
                 delegate: SliverChildListDelegate(
                   [
               if (isLandScape)
-                Column(
+              Row(
+                children: [
+                   Column(
                   children: [
                         buildTitle(context,lan.getTexts('Ingredients').toString()),
                     Row(
@@ -125,18 +127,25 @@ class MealDetailScreen extends StatelessWidget {
                          ],
                     ),
                   ]),
-              if (isLandScape)
+          
                 Column(
-                          children: [
+                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: 
+                        
+                        [
                         buildTitle(context, lan.getTexts('Steps').toString()),
-                          ],
-                        ),
                         Row(
                           children: [
                             buildContainer(liSteps, context),
                           ],
-                        ),
+                          
+                          ),
+                        
+                        ]),
                      
+              ],
+              ),
+               
                  
                 
               if (!isLandScape)

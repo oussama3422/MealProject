@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/material.dart';
 import '../modules/meal.dart';
 import '../provider/language_provider.dart';
 import 'package:provider/provider.dart';
-
 import '../provider/meal_provider.dart';
 import '../widgets/meal_item.dart';
+import 'dart:io';
 
 class FavoriteScreen extends StatelessWidget {
   @override
@@ -18,16 +16,17 @@ class FavoriteScreen extends StatelessWidget {
     final List<Meal> favoriteMeals =
         Provider.of<MealProvider>(context, listen: false).favoriteMeals;
     return favoriteMeals.isEmpty
-        ?  Center(
+        ? Center(
             child: Text(
               lan.getTexts('favorites_text').toString(),
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.secondary,
-              fontWeight: FontWeight.bold,fontSize: 20,
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.secondary,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
               ),
-              softWrap:true ,
+              softWrap: true,
               overflow: TextOverflow.ellipsis,
-              ),
+            ),
           )
         : GridView.builder(
             itemBuilder: (ctx, item) {
@@ -40,13 +39,24 @@ class FavoriteScreen extends StatelessWidget {
                 affordability: favoriteMeals[item].affordability,
               );
             },
-            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-              maxCrossAxisExtent: devicewidth <= 400 ? 400 : 500,
-              childAspectRatio: isLandScape ? 4 / 2 : 2.65 / 2,
-              crossAxisSpacing: 0,
-              mainAxisSpacing: 0,
-            ),
+            gridDelegate: sliverDelegate(devicewidth, isLandScape),
             itemCount: favoriteMeals.length,
+          );
+  }
+
+  SliverGridDelegateWithMaxCrossAxisExtent sliverDelegate(
+      double devicewidth, bool isLandScape) {
+    return Platform.isWindows
+        ? const SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: 600,
+            childAspectRatio: 2.6 / 2.8,
+            crossAxisSpacing: 200,
+            mainAxisSpacing: 40)
+        : SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: devicewidth <= 400 ? 400 : 500,
+            childAspectRatio: isLandScape ? 4 / 2 : 2.65 / 2,
+            crossAxisSpacing: 0,
+            mainAxisSpacing: 0,
           );
   }
 }

@@ -6,7 +6,7 @@ class ThemeProvider with ChangeNotifier {
   var accentColor = Colors.amber;
 
   var tm = ThemeMode.system;
-  var themeText = "s";
+  String themeText='s' ;
   onChanged(color, n) async {
     n == 1
         ? primaryColor = setMaterialColor(color.hashCode)
@@ -70,7 +70,7 @@ class ThemeProvider with ChangeNotifier {
     if (themeText == "d") {
       themeText = ThemeMode.dark as String;
     } else if (themeText == "l") {
-      themeText = ThemeMode.light as String;
+      themeText = ThemeMode.light as String ;
     } else if (themeText == "s") {
       themeText = ThemeMode.system as String;
     }

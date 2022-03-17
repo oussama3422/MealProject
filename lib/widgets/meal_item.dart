@@ -120,8 +120,9 @@ class MealItem extends StatelessWidget {
                       Row(
                     children: [
                        if(duration<=10)
+                      if(lan.isEn)
                       Text( 
-                         lan.getTexts('min2').toString()+"$duration",
+                         "$duration "+lan.getTexts("min2").toString(),
                          style: const TextStyle(
                             color: Colors.purple,
                             fontSize: 13,

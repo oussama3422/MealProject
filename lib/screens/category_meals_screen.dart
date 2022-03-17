@@ -50,8 +50,8 @@ class _CategoryMealsScreenState extends State<CategoryMealsScreen> {
             crossAxisSpacing: 200,
             mainAxisSpacing: 40)
         : const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200,
-            childAspectRatio:  2.2 / 2.2,
+            maxCrossAxisExtent: 400,
+            childAspectRatio:  3.8 / 2.7,
             crossAxisSpacing: 0,
             mainAxisSpacing: 0
             );

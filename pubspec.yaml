@@ -30,6 +30,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
+  windows: true
   image_path: "assets/images/restaurant.png"
 
 

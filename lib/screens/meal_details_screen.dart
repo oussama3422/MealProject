@@ -4,6 +4,7 @@ import 'package:flutter_application_1/provider/meal_provider.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:provider/provider.dart';
 import '../dummy_data.dart';
+import 'dart:io';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = 'detail-screen';
@@ -24,23 +25,36 @@ class MealDetailScreen extends StatelessWidget {
   }
 
   Widget buildContainer(Widget child, BuildContext ctx) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color.fromARGB(255, 70, 19, 187)),
-        borderRadius: BorderRadius.circular(10),
-        color: Theme.of(ctx).splashColor,
-      ),
-      child: child,
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      width: 300,
-      height: 150,
-    );
+    return Platform.isWindows
+        ? Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromARGB(255, 70, 19, 187)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(ctx).splashColor,
+            ),
+            child: child,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            width: 600,
+            height: 300,
+          )
+        : Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: const Color.fromARGB(255, 70, 19, 187)),
+              borderRadius: BorderRadius.circular(10),
+              color: Theme.of(ctx).splashColor,
+            ),
+            child: child,
+            margin: const EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
+            width: 300,
+            height: 150,
+          );
   }
 
   @override
   Widget build(BuildContext context) {
-    Color primary = Theme.of(context).colorScheme.primary ;
+    Color primary = Theme.of(context).colorScheme.primary;
     var isLandScape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     final mealId = ModalRoute.of(context)!.settings.arguments as String;
@@ -60,7 +74,8 @@ class MealDetailScreen extends StatelessWidget {
               backgroundColor: Theme.of(context).colorScheme.secondary,
               child: Text(
                 '# ${item + 1}',
-                style: TextStyle(color:Theme.of(context).canvasColor,fontSize: 20),
+                style: TextStyle(
+                    color: Theme.of(context).canvasColor, fontSize: 20),
               ),
             ),
             title: Text(
@@ -68,7 +83,7 @@ class MealDetailScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headline6,
             ),
           ),
-          const Divider(color:Colors.purple,height: 20),
+          const Divider(color: Colors.purple, height: 20),
         ],
       ),
       itemCount: stepsList.length,
@@ -79,13 +94,11 @@ class MealDetailScreen extends StatelessWidget {
         color: accentColor,
         child: Text(ingredientList[item],
             style: TextStyle(
-                color: useWhiteForeground(accentColor)
-                    ? const Color.fromARGB(255, 155, 13, 13)
-                    : Colors.black,
-                    fontSize:20,
-                    )
-                    
-                    ),
+              color: useWhiteForeground(accentColor)
+                  ? const Color.fromARGB(255, 155, 13, 13)
+                  : Colors.black,
+              fontSize: 20,
+            )),
       ),
       itemCount: ingredientList.length,
     );
@@ -113,50 +126,43 @@ class MealDetailScreen extends StatelessWidget {
               ),
             ),
             SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-              if (isLandScape)
-              Row(
-                children: [
-                   Column(
-                  children: [
-                        buildTitle(context,lan.getTexts('Ingredients').toString()),
+              delegate: SliverChildListDelegate(
+                [
+                  if (isLandScape)
                     Row(
                       children: [
-                        buildContainer(liIngredients, context),
-                         ],
-                    ),
-                  ]),
-          
-                Column(
-                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: 
-                        
-                        [
-                        buildTitle(context, lan.getTexts('Steps').toString()),
-                        Row(
-                          children: [
-                            buildContainer(liSteps, context),
-                          ],
-                          
+                        Column(children: [
+                          buildTitle(
+                              context, lan.getTexts('Ingredients').toString()),
+                          Row(
+                            children: [
+                              buildContainer(liIngredients, context),
+                            ],
                           ),
-                        
                         ]),
-                     
-              ],
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              buildTitle(
+                                  context, lan.getTexts('Steps').toString()),
+                              Row(
+                                children: [
+                                  buildContainer(liSteps, context),
+                                ],
+                              ),
+                            ]),
+                      ],
+                    ),
+
+                  if (!isLandScape)
+                    buildTitle(context, lan.getTexts('Ingredients').toString()),
+                  if (!isLandScape) buildContainer(liIngredients, context),
+                  if (!isLandScape)
+                    buildTitle(context, lan.getTexts('Steps').toString()),
+                  if (!isLandScape) buildContainer(liSteps, context),
+                  //  const SizedBox(height:700),
+                ],
               ),
-               
-                 
-                
-              if (!isLandScape)
-                buildTitle(context, lan.getTexts('Ingredients').toString()),
-              if (!isLandScape) buildContainer(liIngredients, context),
-              if (!isLandScape)
-                buildTitle(context, lan.getTexts('Steps').toString()),
-              if (!isLandScape) buildContainer(liSteps, context),
-              //  const SizedBox(height:700),
-            ],
-            ),
             ),
           ],
         ),

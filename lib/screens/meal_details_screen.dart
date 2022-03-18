@@ -33,8 +33,8 @@ class MealDetailScreen extends StatelessWidget {
               color: Theme.of(ctx).splashColor,
             ),
             child: child,
-            margin: const EdgeInsets.all(10),
-            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: 600,
             height: 300,
           )
